@@ -1,4 +1,5 @@
 ![Version 0.1.0](https://img.shields.io/badge/Version-0.1.0-green.svg)
+![Status: Beta](https://img.shields.io/badge/status-beta-orange.svg)
 [![Forever Healthy](https://img.shields.io/badge/(c)_2026-Forever_Healthy-573D7D.svg)](https://forever-healthy.org)
 ![evipedia.ai](./docs/evipedia-header.png)
 
@@ -7,6 +8,8 @@
 A Chrome extension that brings [evipedia.ai](https://evipedia.ai) evidence-review highlighting to any web page you browse.
 
 When you hover over a recognised health intervention name, the extension shows a compact card summarising Evipedia's evidence review — with a click-through to the full review. No configuration required on the websites you visit.
+
+> **Beta.** This is an early release. Term matching is still being tuned, so you may occasionally see a missed or unexpected highlight. Feedback and bug reports are welcome via [GitHub issues](https://github.com/forever-healthy/evipedia-chrome/issues).
 
 ## Install
 
