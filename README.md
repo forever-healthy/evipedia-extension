@@ -15,6 +15,8 @@ When you hover over a recognised health intervention name, the extension shows a
 
 > Chrome Web Store listing coming soon.
 
+Requires **Chrome 105 or later** (the extension uses the CSS Custom Highlight API for highlighting).
+
 Until then, load the extension unpacked from the [latest GitHub release](https://github.com/forever-healthy/evipedia-chrome/releases):
 
 1. Download and unzip the release archive.
