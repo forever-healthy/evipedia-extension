@@ -30,6 +30,8 @@ Until then, install it manually:
 3. Enable **Developer mode**.
 4. Click **Load unpacked** → select the unzipped folder.
 
+Once installed, open the [live demo page](https://forever-healthy.github.io/evipedia-extension/) to see the extension highlight terms in action.
+
 ## How it works
 
 The extension scans the text of every page you visit and highlights any term that matches a known evipedia review name (canonical or alternate). Hovering a highlighted term shows a card with the review summary; clicking it opens the full review on evipedia.ai.
