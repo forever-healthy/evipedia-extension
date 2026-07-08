@@ -3,17 +3,17 @@
 [![Forever Healthy](https://img.shields.io/badge/(c)_2026-Forever_Healthy-573D7D.svg)](https://forever-healthy.org)
 ![evipedia.ai](./docs/evipedia-header.png)
 
-# BETA: Evipedia Chrome Extension
+# Evipedia Chrome Extension (BETA)
 
 A Chrome extension that brings [evipedia.ai](https://evipedia.ai) evidence-review highlighting to any web page you browse.
 
-Annoyed of reading a supplement label with noumerous compounds, a blog post about some therapy, or an x-post that name-drops a peptide — and having to look up every item manually? 
+Annoyed of reading a supplement label with numerous compounds, a blog post about some therapy, or an x-post that name-drops a peptide — and having to look up every item manually? 
 
 Don't look any further. The Evipedia Chrome extension has you sorted.
 
 It scans whatever page you're on, recognizes any intervention Evipedia covers, and underlines it right there in the text. Hover for an instant evidence summary, or click through to the full review — no more switching tabs to look things up by hand.
 
-The extension currently recognises **3,700+ terms across 500+ evidence reviews**.
+The extension currently recognizes **3,700+ terms across 500+ evidence reviews**.
 
 > **BETA** This is an early release. Term matching is still being tuned, so you may occasionally see a missed or unexpected highlight. Feedback and bug reports are welcome via [GitHub issues](https://github.com/forever-healthy/evipedia-extension/issues).
 
@@ -34,7 +34,7 @@ Until then, install it manually:
 
 The extension scans the text of every page you visit and highlights any term that matches a known evipedia review name (canonical or alternate). Hovering a highlighted term shows a card with the review summary; clicking it opens the full review on evipedia.ai.
 
-The highlights are applied client-side — no page content is sent anywhere. The extension fetches the review index once from `https://evipedia.ai/reviews.json` (the same public endpoint the embeddable widget uses), then resolves all terms from memory.
+The highlights are applied client-side — no page content is sent anywhere. The extension fetches the review index once from `https://evipedia.ai/reviews.json` (the same public endpoint that the embeddable widget uses) and then resolves all terms from memory.
 
 ## Privacy
 
