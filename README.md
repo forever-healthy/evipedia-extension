@@ -23,12 +23,12 @@ The extension currently recognises **3,700+ terms across 500+ evidence reviews**
 
 Requires **Chrome 105 or later** (the extension uses the CSS Custom Highlight API for highlighting).
 
-Until then, load the extension unpacked from the [latest GitHub release](https://github.com/forever-healthy/evipedia-extension/releases):
+Until then, install it manually:
 
-1. Download and unzip the release archive.
+1. Download the [latest release ZIP](https://github.com/forever-healthy/evipedia-extension/releases/latest/download/evipedia-extension.zip) and unzip it.
 2. Open `chrome://extensions`
 3. Enable **Developer mode**.
-4. Click **Load unpacked** → select the unzipped folder.
+4. Click **Load unpacked** → select the unzipped `evipedia-extension` folder.
 
 ## How it works
 
