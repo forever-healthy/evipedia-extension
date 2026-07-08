@@ -7,7 +7,7 @@
 
 A Chrome extension that brings [evipedia.ai](https://evipedia.ai) evidence-review highlighting to any web page you browse.
 
-Annoyed of reading a supplement label with noumerous compounds, a blog post about some therapy, or an x-post that name-drops a peptide — and having to look up every items manually? 
+Annoyed of reading a supplement label with noumerous compounds, a blog post about some therapy, or an x-post that name-drops a peptide — and having to look up every item manually? 
 
 Don't look any further. The Evipedia Chrome extension has you sorted.
 
