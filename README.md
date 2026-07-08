@@ -3,13 +3,19 @@
 [![Forever Healthy](https://img.shields.io/badge/(c)_2026-Forever_Healthy-573D7D.svg)](https://forever-healthy.org)
 ![evipedia.ai](./docs/evipedia-header.png)
 
-# Evipedia Chrome Extension
+# BETA: Evipedia Chrome Extension
 
 A Chrome extension that brings [evipedia.ai](https://evipedia.ai) evidence-review highlighting to any web page you browse.
 
-When you hover over a recognised health intervention name, the extension shows a compact card summarising Evipedia's evidence review — with a click-through to the full review. No configuration required on the websites you visit. It recognises **3,700+ terms across 500+ evidence reviews**.
+Annoyed of reading a supplement label with noumerous compounds, a blog post about some therapy, or an x-post that name-drops a peptide — and having to look up every items manually? 
 
-> **Beta.** This is an early release. Term matching is still being tuned, so you may occasionally see a missed or unexpected highlight. Feedback and bug reports are welcome via [GitHub issues](https://github.com/forever-healthy/evipedia-extension/issues).
+Don't look any further. The Evipedia Chrome extension has you sorted.
+
+It scans whatever page you're on, recognizes any intervention Evipedia covers, and underlines it right there in the text. Hover for an instant evidence summary, or click through to the full review — no more switching tabs to look things up by hand.
+
+The extension currently recognises **3,700+ terms across 500+ evidence reviews**.
+
+> **BETA** This is an early release. Term matching is still being tuned, so you may occasionally see a missed or unexpected highlight. Feedback and bug reports are welcome via [GitHub issues](https://github.com/forever-healthy/evipedia-extension/issues).
 
 ## Install
 
@@ -20,8 +26,9 @@ Requires **Chrome 105 or later** (the extension uses the CSS Custom Highlight AP
 Until then, load the extension unpacked from the [latest GitHub release](https://github.com/forever-healthy/evipedia-extension/releases):
 
 1. Download and unzip the release archive.
-2. Open `chrome://extensions` and enable **Developer mode**.
-3. Click **Load unpacked** → select the unzipped folder.
+2. Open `chrome://extensions`
+3. Enable **Developer mode**.
+4. Click **Load unpacked** → select the unzipped folder.
 
 ## How it works
 
@@ -36,6 +43,7 @@ The hover card is rendered inside a Shadow DOM so it never affects the page's ow
 Click the Evipedia icon in your browser toolbar to:
 
 - **Toggle highlighting globally** — on/off for all sites.
+- **Highlight only once** — mark only the first occurrence of each term on a page, instead of every occurrence.
 - **Toggle highlighting on this site** — exclude (or re-include) the current domain.
 
 ## License
