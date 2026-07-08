@@ -1,0 +1,98 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Evipedia Chrome Extension — Demo Page</title>
+<style>
+  :root { color-scheme: light dark; }
+  body {
+    font: 17px/1.7 -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    max-width: 42rem; margin: 3rem auto; padding: 0 1.25rem; color: #1c1c1c;
+  }
+  h1 { font-size: 1.6rem; }
+  h2 { font-size: 1.15rem; margin-top: 2.5rem; }
+  .lede { color: #555; }
+  .other { font-size: .95rem; margin: 1.25rem 0; }
+  code { background: #eee; padding: .1em .35em; border-radius: 3px; font-size: .9em; }
+  .note {
+    margin-top: 3rem; padding: 1rem 1.25rem; border-left: 3px solid #ccc;
+    background: #f6f6f6; color: #444; font-size: .92rem; border-radius: 4px;
+  }
+  .status {
+    margin: 1.5rem 0; padding: .85rem 1.15rem; border-radius: 6px;
+    background: #573D7D; color: #fff; font-size: .95rem;
+  }
+  @media (prefers-color-scheme: dark) {
+    body { color: #e6e6e6; } .lede { color: #aaa; }
+    code { background: #333; }
+    .note { background: #1e1e1e; border-color: #444; color: #bbb; }
+  }
+</style>
+</head>
+<body>
+
+<h1>Evipedia Chrome Extension — Demo Page</h1>
+<p class="lede">
+  A static test page for the extension. If the extension is installed and enabled,
+  its content script scans this text and highlights every review name it recognizes.
+  Hover a highlighted term to see its evidence-review card.
+</p>
+
+<div class="status">
+  <b>Not seeing highlights?</b> Make sure the extension is installed and enabled,
+  and that this site isn't excluded in the popup. Then reload this page.
+</div>
+
+<h2>Ordinary prose</h2>
+<p>
+  The evidence base for supplements varies widely. Some people take creatine for strength
+  and muscle mass, use melatonin to shift sleep timing, or reach for magnesium for cramps.
+  In cardiometabolic health, metformin and statins are frequently discussed, and riboflavin
+  has been trialed for migraine prophylaxis.
+</p>
+<p>
+  Interest in longevity has pushed compounds like rapamycin, spermidine, and glycine into
+  the conversation, alongside long-studied basics such as vitamin D, zinc, and omega-3.
+</p>
+
+<h2>Highlight once</h2>
+<p>
+  Use the <b>Highlight once</b> switch in the extension popup to test this. The word
+  taurine appears three times in this paragraph: taurine here, taurine again, and
+  taurine a third time.
+</p>
+<ul>
+  <li><b>Switch off (default):</b> all three <i>taurine</i> above are highlighted.</li>
+  <li><b>Switch on:</b> only the <i>first</i> taurine is highlighted; the other two stay plain.</li>
+</ul>
+<p>
+  After flipping the switch, the extension reloads the tab automatically, so just watch
+  this paragraph change.
+</p>
+
+<h2>What is deliberately skipped</h2>
+<p>
+  Auto mode is non-intrusive: names inside links like
+  <a href="https://evipedia.ai">creatine</a>, inside code like <code>melatonin</code>,
+  and inside form fields like <input type="text" value="metformin" size="12"> are all
+  left untouched — the extension never rewrites interactive, code, or editable content.
+</p>
+
+<h2>Acronym casing</h2>
+<p>
+  Acronym review names only match in their exact casing. The supplement
+  <b>SAMe</b> should highlight, but the ordinary word "same" in this same sentence
+  should not. Likewise <b>AGE</b> (advanced glycation end-products) highlights while
+  "age" as a common word does not.
+</p>
+
+<div class="note">
+  <b>Note.</b> This page depends on the live <code>reviews.json</code> from evipedia.ai,
+  so exactly which terms highlight reflects the current published review set. If none of
+  the terms above highlight, check the DevTools Network tab for the
+  <code>evipedia.ai/reviews.json</code> request.
+</div>
+
+</body>
+</html>
