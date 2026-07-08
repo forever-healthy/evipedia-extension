@@ -25,10 +25,10 @@ Requires **Chrome 105 or later** (the extension uses the CSS Custom Highlight AP
 
 Until then, install it manually:
 
-1. Download the [latest release ZIP](https://github.com/forever-healthy/evipedia-extension/releases/latest/download/evipedia-extension.zip) and unzip it.
+1. Download the [latest ZIP](https://github.com/forever-healthy/evipedia-extension/archive/refs/heads/main.zip) and unzip it.
 2. Open `chrome://extensions`
 3. Enable **Developer mode**.
-4. Click **Load unpacked** → select the unzipped `evipedia-extension` folder.
+4. Click **Load unpacked** → select the unzipped folder.
 
 ## How it works
 
@@ -37,6 +37,12 @@ The extension scans the text of every page you visit and highlights any term tha
 The highlights are applied client-side — no page content is sent anywhere. The extension fetches the review index once from `https://evipedia.ai/reviews.json` (the same public endpoint the embeddable widget uses), then resolves all terms from memory.
 
 The hover card is rendered inside a Shadow DOM so it never affects the page's own styles.
+
+## Privacy
+
+Everything runs locally on your machine. The extension reads the text of the pages you visit only in your own browser to find matches — that text is never transmitted. No page content, URLs, browsing history, or personal data is ever sent to Evipedia or anyone else.
+
+Its only network request is a one-time download of the public review index (`reviews.json`) from evipedia.ai — an ordinary file fetch that carries none of your data. All matching, highlighting, and hover cards are computed entirely on-device.
 
 ## Popup controls
 
