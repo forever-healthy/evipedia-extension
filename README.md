@@ -36,8 +36,6 @@ The extension scans the text of every page you visit and highlights any term tha
 
 The highlights are applied client-side — no page content is sent anywhere. The extension fetches the review index once from `https://evipedia.ai/reviews.json` (the same public endpoint the embeddable widget uses), then resolves all terms from memory.
 
-**It doesn't modify the page.** Highlights are drawn with the browser's native CSS Custom Highlight API, which paints matches as an overlay on the existing text — the extension never wraps terms in extra tags, rewrites, or reorders any of the page's own HTML. The page's markup and layout are left exactly as the site delivered them, so nothing can break the site's own styling or scripts. Remove the extension and the page is unchanged.
-
 The hover card is rendered inside its own Shadow DOM so it never affects the page's own styles.
 
 ## Privacy
@@ -45,6 +43,8 @@ The hover card is rendered inside its own Shadow DOM so it never affects the pag
 Everything runs locally on your machine. The extension reads the text of the pages you visit only in your own browser to find matches — that text is never transmitted. No page content, URLs, browsing history, or personal data is ever sent to Evipedia or anyone else.
 
 Its only network request is a one-time download of the public review index (`reviews.json`) from evipedia.ai — an ordinary file fetch that carries none of your data. All matching, highlighting, and hover cards are computed entirely on-device.
+
+It also never modifies the page's DOM or HTML — highlights are drawn as an overlay, leaving the site exactly as delivered.
 
 ## Popup controls
 
