@@ -42,7 +42,7 @@ The highlights are applied client-side — no page content is sent anywhere. The
 
 Everything runs locally on the user machine. The extension reads the text of the pages visited only in the browser to find matches — that text is never transmitted. No page content, URLs, browsing history, or personal data is ever sent to Evipedia or anyone else.
 
-Its only network request is a one-time download of the public review index (`/reviews.json`) from evipedia.ai — an ordinary file fetch that carries none of your data. All matching, highlighting, and hover cards are computed entirely on-device.
+Its only network request is a one-time download of the public review index (`/reviews.json`) from evipedia.ai — an ordinary file fetch that carries no user data. All matching, highlighting, and hover cards are computed entirely on-device.
 
 It also never modifies the page's DOM or HTML — highlights are drawn as an overlay, leaving the site exactly as delivered.
 
