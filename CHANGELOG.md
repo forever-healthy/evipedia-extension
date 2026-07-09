@@ -1,6 +1,10 @@
 # Evipedia Extension - Change Log
 
 
+### v0.1.2 — 2026-07-09
+
+* Prefer the general Health & Longevity review when an alternate name matches more than one
+
 ### v0.1.1 — 2026-07-09
 
 * Add a "Give feedback" link to the popup
