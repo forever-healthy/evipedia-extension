@@ -2,7 +2,7 @@
   "manifest_version": 3,
   "name": "Evipedia",
   "description": "Highlights health intervention terms on any web page with evidence review hover cards from evipedia.ai",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "permissions": ["storage", "activeTab"],
   "host_permissions": [
     "https://evipedia.ai/*",
