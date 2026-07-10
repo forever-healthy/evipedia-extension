@@ -1,6 +1,13 @@
 # Evipedia Extension - Change Log
 
 
+### v0.3.2 — 2026-07-10
+
+* **Safari support (beta)** — added a Safari build; install temporarily via *Develop →
+  Add Temporary Extension* on the unzipped `evipedia-safari.zip`. Requires Safari 17.4+.
+* `/build` now also packages the `evipedia-chrome.zip` and `evipedia-safari.zip` downloads
+  (manifest at zip root).
+
 ### v0.3.1 — 2026-07-10
 
 * **Firefox now installs permanently** — ships as a Mozilla-signed `.xpi`

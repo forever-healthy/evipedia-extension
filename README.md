@@ -1,11 +1,11 @@
-![Version 0.3.1](https://img.shields.io/badge/Version-0.3.1-green.svg)
+![Version 0.3.2](https://img.shields.io/badge/Version-0.3.2-green.svg)
 ![Status: Beta](https://img.shields.io/badge/status-beta-orange.svg)
 [![Forever Healthy](https://img.shields.io/badge/(c)_2026-Forever_Healthy-573D7D.svg)](https://forever-healthy.org)
 ![evipedia.ai](./docs/evipedia-header.png)
 
 # Evipedia Browser Extension (BETA)
 
-A browser extension for **Chrome** and **Firefox** that brings [evipedia.ai](https://evipedia.ai) evidence-review highlighting to any web page you browse.
+A browser extension for **Chrome**, **Firefox**, and **Safari** that brings [evipedia.ai](https://evipedia.ai) evidence-review highlighting to any web page you browse.
 
 Annoyed of manualy decoding a supplement label with noumerous compounds, reading a blog post about some therapy, or an X-post that name-drops a peptide — and having to look up every item manually? 
 
@@ -21,7 +21,7 @@ The extension currently recognizes **3,700+ terms across 500+ evidence reviews**
 
 > Chrome Web Store and Firefox Add-ons listings coming soon.
 
-Both builds use the CSS Custom Highlight API, so they require a recent browser: **Chrome 105+** or **Firefox 140+**.
+All builds use the CSS Custom Highlight API, so they require a recent browser: **Chrome 105+**, **Firefox 140+**, or **Safari 17.4+**.
 
 ### Chrome
 
@@ -38,6 +38,17 @@ The Firefox build is a **signed `.xpi`**, so it installs permanently.
 2. Open `about:addons`
 3. Click the gear ⚙ icon → **Install Add-on From File…** and select the downloaded `evipedia-firefox.xpi`.
 4. Confirm the install prompt.
+
+### Safari (temporary)
+
+Safari only installs unpacked extensions **temporarily** — they're removed when you quit Safari, so you re-add each session.
+
+1. Download **[evipedia-safari.zip](https://github.com/forever-healthy/evipedia-extension/raw/main/releases/evipedia-safari.zip)** and unzip it.
+2. Safari → **Settings → Developer** → check **Allow unsigned extensions**.
+3. Safari → **Develop** menu → **Add Temporary Extension…** → select the unzipped **`evipedia-safari`** folder.
+4. Safari → **Settings → Extensions** → enable **Evipedia** and grant it access to websites.
+
+Steps 2–3 reset every time you quit Safari.
 
 Once installed, open the [live demo page](https://forever-healthy.github.io/evipedia-extension/) to see the extension highlight terms in action.
 
