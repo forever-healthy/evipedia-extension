@@ -45,7 +45,7 @@ Safari only installs unpacked extensions **temporarily** — they're removed whe
 
 1. Download **[evipedia-safari.zip](https://github.com/forever-healthy/evipedia-extension/raw/main/releases/evipedia-safari.zip)** and unzip it.
 2. Safari → **Settings → Developer** → check **Allow unsigned extensions**.
-3. Safari → **Develop** menu → **Add Temporary Extension…** → select the unzipped **`evipedia-safari`** folder.
+3. In the same pane, click **Add Temporary Extension…** → select the unzipped **`evipedia-safari`** folder.
 4. Safari → **Settings → Extensions** → enable **Evipedia** and grant it access to websites.
 
 Steps 2–3 reset every time you quit Safari.
