@@ -19,7 +19,7 @@ The extension currently recognizes **3,700+ terms across 500+ evidence reviews**
 
 ## Install
 
-> Chrome Web Store and Firefox Add-ons listings coming soon.
+> Chrome Web Store, Firefox Add-ons, and Safari App Store listings coming soon.
 
 All builds use the CSS Custom Highlight API, so they require a recent browser: **Chrome 105+**, **Firefox 140+**, or **Safari 17.4+**.
 
