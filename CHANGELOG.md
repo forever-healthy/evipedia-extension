@@ -1,6 +1,12 @@
 # Evipedia Extension - Change Log
 
 
+### v0.3.1 — 2026-07-10
+
+* **Firefox now installs permanently** — ships as a Mozilla-signed `.xpi`
+  (`releases/evipedia-firefox.xpi`); install via `about:addons` → *Install Add-on From
+  File*. No more temporary loading.
+
 ### v0.3.0 — 2026-07-10
 
 * **Firefox support** — added a Firefox build in **`dist/firefox`** (load it via `about:debugging` → *Load Temporary Add-on*, select `manifest.json`). Requires Firefox 140+.

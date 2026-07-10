@@ -1,4 +1,4 @@
-![Version 0.3.0](https://img.shields.io/badge/Version-0.3.0-green.svg)
+![Version 0.3.1](https://img.shields.io/badge/Version-0.3.1-green.svg)
 ![Status: Beta](https://img.shields.io/badge/status-beta-orange.svg)
 [![Forever Healthy](https://img.shields.io/badge/(c)_2026-Forever_Healthy-573D7D.svg)](https://forever-healthy.org)
 ![evipedia.ai](./docs/evipedia-header.png)
@@ -35,11 +35,12 @@ Download the [latest ZIP](https://github.com/forever-healthy/evipedia-extension/
 
 ### Firefox
 
-1. Open `about:debugging#/runtime/this-firefox`
-2. Click **Load Temporary Add-on…**
-3. Select the **`manifest.json`** file inside the **`dist/firefox`** folder of the unzipped download — i.e. `evipedia-extension-main/dist/firefox/manifest.json`.
+The Firefox build is a **signed `.xpi`**, so it installs permanently.
 
-> ⚠️ Firefox only installs unsigned add-ons **temporarily** — the extension is removed when you restart the browser, and you'll need to load it again. A permanently installable, signed Firefox build is planned.
+1. Open `about:addons`
+2. Click the gear ⚙ icon → **Install Add-on From File…**
+3. Select **`releases/evipedia-firefox.xpi`** from the unzipped download — i.e. `evipedia-extension-main/releases/evipedia-firefox.xpi`.
+4. Confirm the install prompt.
 
 Once installed, open the [live demo page](https://forever-healthy.github.io/evipedia-extension/) to see the extension highlight terms in action.
 
