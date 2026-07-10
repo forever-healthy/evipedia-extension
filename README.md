@@ -44,9 +44,9 @@ The Firefox build is a **signed `.xpi`**, so it installs permanently.
 Safari only installs unpacked extensions **temporarily** — they're removed when you quit Safari, so you re-add each session.
 
 1. Download **[evipedia-safari.zip](https://github.com/forever-healthy/evipedia-extension/raw/main/releases/evipedia-safari.zip)** and unzip it.
-2. Safari → **Settings → Developer** → check **Allow unsigned extensions**.
+2. **Settings → Developer** → check **Allow unsigned extensions**.
 3. In the same pane, click **Add Temporary Extension…** → select the unzipped **`evipedia-safari`** folder.
-4. Safari → **Settings → Extensions** → enable **Evipedia** and grant it access to websites.
+4. **Settings → Extensions** → enable **Evipedia** and grant it access to websites.
 
 Steps 2–3 reset every time you quit Safari.
 
