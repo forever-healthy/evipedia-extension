@@ -1,4 +1,4 @@
-![Version 0.1.2](https://img.shields.io/badge/Version-0.1.2-green.svg)
+![Version 0.1.0](https://img.shields.io/badge/Version-0.1.0-green.svg)
 ![Status: Beta](https://img.shields.io/badge/status-beta-orange.svg)
 [![Forever Healthy](https://img.shields.io/badge/(c)_2026-Forever_Healthy-573D7D.svg)](https://forever-healthy.org)
 ![evipedia.ai](./docs/evipedia-header.png)
@@ -28,7 +28,9 @@ Until then, install it manually:
 1. Download the [latest ZIP](https://github.com/forever-healthy/evipedia-extension/archive/refs/heads/main.zip) and unzip it.
 2. Open `chrome://extensions`
 3. Enable **Developer mode**.
-4. Click **Load unpacked** → select the unzipped folder.
+4. Click **Load unpacked** and select the **`dist/chrome`** folder inside the unzipped download — i.e. `evipedia-extension-main/dist/chrome`.
+
+> ⚠️ Select the **`dist/chrome`** subfolder, **not** the top-level `evipedia-extension-main` folder. Chrome needs the folder that directly contains `manifest.json`; pointing it at the top-level folder will fail.
 
 Once installed, open the [live demo page](https://forever-healthy.github.io/evipedia-extension/) to see the extension highlight terms in action.
 
