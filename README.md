@@ -23,23 +23,20 @@ The extension currently recognizes **3,700+ terms across 500+ evidence reviews**
 
 Both builds use the CSS Custom Highlight API, so they require a recent browser: **Chrome 105+** or **Firefox 140+**.
 
-Download the [latest ZIP](https://github.com/forever-healthy/evipedia-extension/archive/refs/heads/main.zip) and unzip it, then follow the steps for your browser.
-
 ### Chrome
 
-1. Open `chrome://extensions`
-2. Enable **Developer mode**.
-3. Click **Load unpacked** and select the **`dist/chrome`** folder inside the unzipped download — i.e. `evipedia-extension-main/dist/chrome`.
-
-> ⚠️ Select the **`dist/chrome`** subfolder, **not** the top-level `evipedia-extension-main` folder. Chrome needs the folder that directly contains `manifest.json`; pointing it at the top-level folder will fail.
+1. Download **[evipedia-chrome.zip](https://github.com/forever-healthy/evipedia-extension/raw/main/releases/evipedia-chrome.zip)** and unzip it.
+2. Open `chrome://extensions`
+3. Enable **Developer mode**.
+4. Click **Load unpacked** and select the unzipped **`evipedia-chrome`** folder (the one containing `manifest.json`).
 
 ### Firefox
 
 The Firefox build is a **signed `.xpi`**, so it installs permanently.
 
-1. Open `about:addons`
-2. Click the gear ⚙ icon → **Install Add-on From File…**
-3. Select **`releases/evipedia-firefox.xpi`** from the unzipped download — i.e. `evipedia-extension-main/releases/evipedia-firefox.xpi`.
+1. Download **[evipedia-firefox.xpi](https://github.com/forever-healthy/evipedia-extension/raw/main/releases/evipedia-firefox.xpi)**.
+2. Open `about:addons`
+3. Click the gear ⚙ icon → **Install Add-on From File…** and select the downloaded `evipedia-firefox.xpi`.
 4. Confirm the install prompt.
 
 Once installed, open the [live demo page](https://forever-healthy.github.io/evipedia-extension/) to see the extension highlight terms in action.
