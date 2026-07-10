@@ -39,7 +39,7 @@ The Firefox build is a **signed `.xpi`**, so it installs permanently.
 3. Click the gear ⚙ icon → **Install Add-on From File…** and select the downloaded `evipedia-firefox.xpi`.
 4. Confirm the install prompt.
 
-### Safari (temporary)
+### Safari
 
 Safari only installs unpacked extensions **temporarily** — they're removed when you quit Safari, so you re-add each session.
 
