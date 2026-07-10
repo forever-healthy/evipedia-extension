@@ -1,15 +1,15 @@
-![Version 0.2.0](https://img.shields.io/badge/Version-0.2.0-green.svg)
+![Version 0.3.0](https://img.shields.io/badge/Version-0.3.0-green.svg)
 ![Status: Beta](https://img.shields.io/badge/status-beta-orange.svg)
 [![Forever Healthy](https://img.shields.io/badge/(c)_2026-Forever_Healthy-573D7D.svg)](https://forever-healthy.org)
 ![evipedia.ai](./docs/evipedia-header.png)
 
-# Evipedia Chrome Extension (BETA)
+# Evipedia Browser Extension (BETA)
 
-A Chrome extension that brings [evipedia.ai](https://evipedia.ai) evidence-review highlighting to any web page you browse.
+A browser extension for **Chrome** and **Firefox** that brings [evipedia.ai](https://evipedia.ai) evidence-review highlighting to any web page you browse.
 
 Annoyed of manualy decoding a supplement label with noumerous compounds, reading a blog post about some therapy, or an X-post that name-drops a peptide — and having to look up every item manually? 
 
-Don't look any further. The Evipedia Chrome extension has you sorted.
+Don't look any further. The Evipedia browser extension has you sorted.
 
 It scans whatever page you're on, recognizes any intervention Evipedia covers, and underlines it right there in the text. Hover for an instant evidence summary, or click through to the full review — no more switching tabs to look things up by hand.
 
@@ -19,18 +19,27 @@ The extension currently recognizes **3,700+ terms across 500+ evidence reviews**
 
 ## Install
 
-> Chrome Web Store listing coming soon.
+> Chrome Web Store and Firefox Add-ons listings coming soon.
 
-Requires **Chrome 105 or later** (the extension uses the CSS Custom Highlight API for highlighting).
+Both builds use the CSS Custom Highlight API, so they require a recent browser: **Chrome 105+** or **Firefox 140+**.
 
-Until then, install it manually:
+Download the [latest ZIP](https://github.com/forever-healthy/evipedia-extension/archive/refs/heads/main.zip) and unzip it, then follow the steps for your browser.
 
-1. Download the [latest ZIP](https://github.com/forever-healthy/evipedia-extension/archive/refs/heads/main.zip) and unzip it.
-2. Open `chrome://extensions`
-3. Enable **Developer mode**.
-4. Click **Load unpacked** and select the **`dist/chrome`** folder inside the unzipped download — i.e. `evipedia-extension-main/dist/chrome`.
+### Chrome
+
+1. Open `chrome://extensions`
+2. Enable **Developer mode**.
+3. Click **Load unpacked** and select the **`dist/chrome`** folder inside the unzipped download — i.e. `evipedia-extension-main/dist/chrome`.
 
 > ⚠️ Select the **`dist/chrome`** subfolder, **not** the top-level `evipedia-extension-main` folder. Chrome needs the folder that directly contains `manifest.json`; pointing it at the top-level folder will fail.
+
+### Firefox
+
+1. Open `about:debugging#/runtime/this-firefox`
+2. Click **Load Temporary Add-on…**
+3. Select the **`manifest.json`** file inside the **`dist/firefox`** folder of the unzipped download — i.e. `evipedia-extension-main/dist/firefox/manifest.json`.
+
+> ⚠️ Firefox only installs unsigned add-ons **temporarily** — the extension is removed when you restart the browser, and you'll need to load it again. A permanently installable, signed Firefox build is planned.
 
 Once installed, open the [live demo page](https://forever-healthy.github.io/evipedia-extension/) to see the extension highlight terms in action.
 

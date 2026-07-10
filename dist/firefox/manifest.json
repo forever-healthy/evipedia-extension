@@ -3,13 +3,22 @@
   "name": "Evipedia",
   "description": "Highlights health intervention terms on any web page with evidence review hover cards from evipedia.ai",
   "version": "0.3.0",
+  "browser_specific_settings": {
+    "gecko": {
+      "id": "extension@evipedia.ai",
+      "strict_min_version": "140.0",
+      "data_collection_permissions": {
+        "required": ["none"]
+      }
+    }
+  },
   "permissions": ["storage", "activeTab"],
   "host_permissions": [
     "https://evipedia.ai/*",
     "<all_urls>"
   ],
   "background": {
-    "service_worker": "background.js"
+    "scripts": ["background.js"]
   },
   "content_scripts": [
     {

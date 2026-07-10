@@ -1,6 +1,11 @@
 # Evipedia Extension - Change Log
 
 
+### v0.3.0 — 2026-07-10
+
+* **Firefox support** — added a Firefox build in **`dist/firefox`** (load it via `about:debugging` → *Load Temporary Add-on*, select `manifest.json`). Requires Firefox 140+.
+* Shares the exact same highlighting/popup code as the Chrome build; no functional changes
+
 ### v0.2.0 — 2026-07-10
 
 * Repackaged for multi-browser: load the **`dist/chrome`** folder from the download in `chrome://extensions` (previously the top-level folder)
