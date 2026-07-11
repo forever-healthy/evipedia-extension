@@ -32,12 +32,11 @@ All builds use the CSS Custom Highlight API, so they require a recent browser: *
 
 ### Firefox
 
-The Firefox build is a **signed `.xpi`**, so it installs permanently.
+Firefox loads unpacked extensions **temporarily** — they're removed when Firefox restarts. (A permanent, auto-updating install via the Firefox Add-ons gallery is coming soon.)
 
-1. Download **[evipedia-firefox.xpi](https://github.com/forever-healthy/evipedia-extension/raw/main/releases/evipedia-firefox.xpi)**.
-2. Open `about:addons`
-3. Click the gear ⚙ icon → **Install Add-on From File…** and select the downloaded `evipedia-firefox.xpi`.
-4. Confirm the install prompt.
+1. Download **[evipedia-firefox.zip](https://github.com/forever-healthy/evipedia-extension/raw/main/releases/evipedia-firefox.zip)** and unzip it.
+2. Open `about:debugging#/runtime/this-firefox`
+3. Click **Load Temporary Add-on…** and select the **`manifest.json`** inside the unzipped **`evipedia-firefox`** folder.
 
 ### Safari
 
@@ -71,7 +70,9 @@ It also never modifies the page's DOM or HTML — highlights are drawn as an ove
 Click the Evipedia icon in the browser toolbar to:
 
 - **Toggle highlighting globally** — on/off for all sites.
+
 - **Highlight only once** — mark only the first occurrence of each term on a page, instead of every occurrence.
+
 - **Toggle highlighting on this site** — exclude (or re-include) the current domain.
 
 ## License
