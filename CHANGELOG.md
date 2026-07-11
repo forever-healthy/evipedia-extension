@@ -1,6 +1,16 @@
 # Evipedia Extension - Change Log
 
 
+### v0.3.5 — 2026-07-11
+
+* Firefox: added `gecko_android.strict_min_version: 142.0` so the
+  `data_collection_permissions` key is only offered on Android versions that support it
+  (silences the AMO "manifest key not supported by minimum Firefox for Android" warning).
+  Desktop min stays 140.
+* Hover card is now built with DOM APIs + `textContent` instead of `innerHTML` string
+  concatenation (removes AMO's "unsafe innerHTML assignment" warning; no behavior change).
+  The now-unused `escapeHtml` helper was dropped.
+
 ### v0.3.4 — 2026-07-11
 
 * Removed the redundant `<all_urls>` **host permission**. The content script still runs on all

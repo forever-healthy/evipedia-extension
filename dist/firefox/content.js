@@ -166,13 +166,9 @@
     return indexPromise;
   }
 
-  // ---- card UI (Shadow DOM — identical to widget.js) ------------------------
-
-  function escapeHtml(str) {
-    return String(str == null ? "" : str).replace(/[&<>"']/g, function (c) {
-      return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c];
-    });
-  }
+  // ---- card UI (Shadow DOM) -------------------------------------------------
+  // NB: diverges from widget.js — the card is built with DOM APIs/textContent
+  // instead of innerHTML+escapeHtml (see render()), so escapeHtml is not needed.
 
   var ABBR = /^(?:e\.g|i\.e|vs|etc|approx|cf|al|Dr|Mr|Mrs|Ms|Prof|Fig)$/i;
   function firstSentence(text) {
@@ -234,14 +230,26 @@
     }
 
     function render(review) {
-      content.innerHTML =
-        '<div class="body">' +
-          '<p class="kicker">evipedia · evidence review</p>' +
-          '<p class="title">' + escapeHtml(review.canonical_name) + "</p>" +
-          '<p class="conclusion">' + escapeHtml(firstSentence(review.er_conclusion)) + "</p>" +
-          '<a class="more" href="' + escapeHtml(reviewUrl(review.permalink)) +
-            '" target="_blank" rel="noopener">See the review →</a>' +
-        "</div>";
+      // Build with DOM APIs + textContent (no innerHTML) so untrusted review
+      // fields can never be interpreted as markup — also silences AMO's
+      // "unsafe innerHTML assignment" lint.
+      function el(tag, cls, text) {
+        var n = document.createElement(tag);
+        if (cls) n.className = cls;
+        if (text != null) n.textContent = text;
+        return n;
+      }
+      var body = el("div", "body");
+      body.appendChild(el("p", "kicker", "evipedia · evidence review"));
+      body.appendChild(el("p", "title", review.canonical_name));
+      body.appendChild(el("p", "conclusion", firstSentence(review.er_conclusion)));
+      var more = el("a", "more", "See the review →");
+      more.href = reviewUrl(review.permalink);
+      more.target = "_blank";
+      more.rel = "noopener";
+      body.appendChild(more);
+      content.textContent = "";
+      content.appendChild(body);
     }
 
     card.addEventListener("mouseenter", function () { clearTimeout(hideTimer); });
