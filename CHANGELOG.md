@@ -1,6 +1,13 @@
 # Evipedia Extension - Change Log
 
 
+### v0.3.3 — 2026-07-11
+
+* Extension description now reads "health **and longevity** intervention terms" to better
+  reflect the review coverage (store-listing + manifest copy).
+* Added an extension privacy policy at `docs/privacy.html`
+  (`https://forever-healthy.github.io/evipedia-extension/privacy.html`) for the store listings.
+
 ### v0.3.2 — 2026-07-10
 
 * **Safari support (beta)** — added a Safari build; install temporarily via *Develop →
