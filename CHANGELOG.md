@@ -1,6 +1,12 @@
 # Evipedia Extension - Change Log
 
 
+### v0.3.6 — 2026-07-11
+
+* **Touch support** — tapping a highlighted term now opens its evidence card (and tapping
+  away dismisses it) on touch devices, which have no hover: iOS/iPadOS Safari and Firefox for
+  Android. Uses `pointerup` + the same range hit-test as hover; mouse/desktop is unchanged.
+
 ### v0.3.5 — 2026-07-11
 
 * Firefox: added `gecko_android.strict_min_version: 142.0` so the

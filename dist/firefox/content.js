@@ -267,7 +267,7 @@
     function hide() { card.classList.remove("on"); }
     function scheduleHide() { hideTimer = setTimeout(hide, config.hideDelay); }
 
-    return { show: show, scheduleHide: scheduleHide, host: host };
+    return { show: show, hide: hide, scheduleHide: scheduleHide, host: host };
   }
 
   // ---- term binding & scanning (identical to widget.js) --------------------
@@ -281,6 +281,9 @@
       clearTimeout(showTimer);
       ui.scheduleHide();
     });
+    // Touch devices have no hover — a tap opens the card immediately (manual-mode
+    // term elements; the auto/Range path is handled by onTap below).
+    term.addEventListener("click", function () { ui.show(term, review); });
   }
 
   function ensureAffordanceStyles() {
@@ -450,10 +453,32 @@
     requestAnimationFrame(processHover);
   }
 
+  // Touch/pen have no hover — a tap on an auto (Range) highlight opens its card,
+  // a tap elsewhere dismisses it. Mouse keeps using hover (onPointerMove), so
+  // desktop is unchanged. Fixes iOS/iPadOS Safari and Firefox for Android, where
+  // the hover-only card would otherwise never appear. Uses `pointerup` (not
+  // `click`, which iOS doesn't reliably fire for taps on non-interactive text)
+  // and the same rangeAt() geometry hit-test as hover.
+  function onTap(e) {
+    if (e.pointerType && e.pointerType !== "touch" && e.pointerType !== "pen") return;
+    if (!highlightRanges.length || !ui) return;
+    if (ui.host && e.composedPath && e.composedPath().indexOf(ui.host) !== -1) return;
+    var hit = rangeAt(e.clientX, e.clientY);
+    clearTimeout(hoverShowTimer);
+    if (hit) {
+      hoverHit = hit;
+      ui.show(hit.range, hit.review);
+    } else {
+      hoverHit = null;
+      ui.hide();
+    }
+  }
+
   function enableHover() {
     if (hoverEnabled) return;
     hoverEnabled = true;
     document.addEventListener("mousemove", onPointerMove, { passive: true });
+    document.addEventListener("pointerup", onTap, { passive: true });
   }
 
   function autoScan(data) {
