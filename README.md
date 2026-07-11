@@ -15,7 +15,7 @@ It scans whatever page you're on, recognizes any intervention Evipedia covers, a
 
 The extension currently recognizes **3,700+ terms across 500+ evidence reviews**.
 
-> **BETA** This is an early release. Term matching is still being tuned, so you may occasionally see a missed or unexpected highlight. Feedback and bug reports are welcome via [GitHub issues](https://github.com/forever-healthy/evipedia-extension/issues).
+> **BETA** Feedback and bug reports are welcome via [GitHub issues](https://github.com/forever-healthy/evipedia-extension/issues).
 
 ## Install
 
