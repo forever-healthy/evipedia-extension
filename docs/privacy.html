@@ -1,0 +1,117 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Evipedia Browser Extension — Privacy Policy</title>
+<style>
+  :root { color-scheme: light dark; }
+  body {
+    font: 17px/1.7 -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    max-width: 42rem; margin: 3rem auto; padding: 0 1.25rem; color: #1c1c1c;
+  }
+  .header { display: block; width: 100%; height: auto; margin-bottom: 2.5rem; }
+  h1 { font-size: 1.6rem; }
+  h2 { font-size: 1.15rem; margin-top: 2.5rem; }
+  .lede { color: #555; }
+  .updated { color: #888; font-size: .9rem; margin-top: -.5rem; }
+  code { background: #eee; padding: .1em .35em; border-radius: 3px; font-size: .9em; }
+  ul { padding-left: 1.2rem; }
+  li { margin: .35rem 0; }
+  .note {
+    margin-top: 3rem; padding: 1rem 1.25rem; border-left: 3px solid #ccc;
+    background: #f6f6f6; color: #444; font-size: .92rem; border-radius: 4px;
+  }
+  a { color: #573D7D; }
+  @media (prefers-color-scheme: dark) {
+    body { color: #e6e6e6; } .lede { color: #aaa; }
+    code { background: #333; }
+    .note { background: #1e1e1e; border-color: #444; color: #bbb; }
+    a { color: #b79fe0; }
+  }
+</style>
+</head>
+<body>
+
+<img class="header" src="evipedia-header.png" alt="evipedia.ai">
+
+<h1>Privacy Policy — Evipedia Browser Extension</h1>
+<p class="updated">Last updated: 11 July 2026</p>
+
+<p class="lede">
+  This policy covers the <b>Evipedia browser extension</b> for Chrome, Firefox, and Safari.
+  It applies only to the extension — not to the evipedia.ai website, which is covered by the
+  <a href="https://www.forever-healthy.org/privacy">Forever Healthy privacy policy</a>.
+</p>
+
+<h2>The short version</h2>
+<p>
+  The extension <b>does not collect, store, or transmit any personal data</b>. Everything it
+  does runs locally in your browser. No page content, URLs, browsing history, or personal
+  information is ever sent to Evipedia, Forever Healthy, or anyone else.
+</p>
+
+<h2>What the extension does</h2>
+<p>
+  The extension reads the text of the pages you visit <b>only within your browser</b> to find
+  terms that match a known Evipedia evidence review, and highlights them. Hovering a highlight
+  shows a summary card; clicking it opens the full review on evipedia.ai. This text processing
+  happens entirely on your device and the page text never leaves it.
+</p>
+
+<h2>Data we collect</h2>
+<p>
+  None. Specifically, the extension does <b>not</b> collect or transmit:
+</p>
+<ul>
+  <li>Page content or the text of pages you visit</li>
+  <li>URLs, browsing or search history</li>
+  <li>Personally identifiable information (name, email, etc.)</li>
+  <li>Health information</li>
+  <li>Location, authentication, or financial information</li>
+  <li>Clicks, keystrokes, or other usage analytics</li>
+</ul>
+
+<h2>Local storage</h2>
+<p>
+  The extension saves your preferences — global on/off, "highlight once", and any per-site
+  exclusions — using the browser's local extension storage. This stays on your device, is used
+  only to remember your settings, and is never synced or sent anywhere.
+</p>
+
+<h2>Network requests</h2>
+<p>
+  The extension makes a single type of network request: it downloads the public review index
+  (<code>reviews.json</code>) from evipedia.ai — the same public file the evipedia.ai widget
+  uses. This request carries <b>no user data</b>; it only fetches the list of reviews so terms
+  can be matched locally. No other servers are contacted.
+</p>
+
+<h2>Permissions</h2>
+<ul>
+  <li><b>Access to all websites</b> (<code>&lt;all_urls&gt;</code>) — so highlighting can work
+    on any page you read. Page text is only ever read locally to find matches.</li>
+  <li><b>evipedia.ai access</b> — to fetch the public <code>reviews.json</code> index.</li>
+  <li><b>Storage</b> — to remember your popup preferences on your device.</li>
+  <li><b>Active tab</b> — to apply popup actions to the tab you're viewing.</li>
+</ul>
+
+<h2>Third parties</h2>
+<p>
+  The extension contains no analytics, no advertising, and no third-party trackers. It does not
+  sell or share any data, because it does not collect any.
+</p>
+
+<h2>Contact</h2>
+<p>
+  Questions about this policy or the extension? Open an issue on the
+  <a href="https://github.com/forever-healthy/evipedia-extension/issues">GitHub repository</a>.
+</p>
+
+<div class="note">
+  <b>Changes.</b> If this policy changes, the updated date above will change and the new version
+  will be published at this same URL.
+</div>
+
+</body>
+</html>
