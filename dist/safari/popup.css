@@ -1,0 +1,118 @@
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  /* Dark blue of the evipedia.ai submit button (.form-submit = var(--link)).
+     Kept dark in both light and dark mode — not lightened — so the switches
+     read as the same solid blue as the site's submit button. */
+  --accent: #2563eb;
+  --accent-active: #1d4ed8;
+  --text: #202122;
+  --text-muted: #72777d;
+  --border: #e0e0e0;
+  --bg: #fff;
+  --row-hover: #f5f8fe;
+}
+
+/* Follow the OS day/night setting. */
+@media (prefers-color-scheme: dark) {
+  :root {
+    /* --accent stays the dark submit-button blue (not lightened) */
+    --text: #e6e6e6;
+    --text-muted: #9aa0a6;
+    --border: #3a3a3a;
+    --bg: #1b1b1b;
+    --row-hover: #252a33;
+  }
+}
+
+body {
+  width: 240px;
+  font: 14px/1.5 -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  color: var(--text);
+  background: var(--bg);
+}
+
+header {
+  display: flex;
+  align-items: baseline;
+  gap: 6px;
+  padding: 12px 16px 10px;
+  border-bottom: 1px solid var(--border);
+}
+
+.logo {
+  font-weight: 700;
+  font-size: 15px;
+  color: var(--text);        /* black on light, white on dark */
+  letter-spacing: -.01em;
+}
+
+.tagline {
+  font-size: 11px;
+  color: var(--text-muted);
+  letter-spacing: .03em;
+  text-transform: uppercase;
+}
+
+.row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 11px 16px;
+  border-bottom: 1px solid var(--border);
+  transition: background .1s;
+}
+
+.row:hover { background: var(--row-hover); }
+.row[hidden] { display: none; }   /* beats .row's display:flex so [hidden] works */
+
+.label { display: flex; flex-direction: column; gap: 1px; }
+.label-main { font-weight: 500; }
+.label-sub { font-size: 11px; color: var(--text-muted); }
+
+/* Toggle switch */
+.toggle { display: flex; align-items: center; cursor: pointer; }
+.toggle input { position: absolute; opacity: 0; width: 0; height: 0; }
+
+.track {
+  position: relative;
+  width: 36px;
+  height: 20px;
+  border-radius: 10px;
+  background: #ccc;
+  transition: background .2s;
+}
+
+.thumb {
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: #fff;
+  box-shadow: 0 1px 3px rgba(0,0,0,.3);
+  transition: left .2s;
+}
+
+.toggle input:checked + .track { background: var(--accent); }
+.toggle input:checked + .track .thumb { left: 18px; }
+.toggle input:focus-visible + .track { outline: 2px solid var(--accent-active); outline-offset: 2px; }
+
+.row.dimmed { opacity: .4; pointer-events: none; }
+
+footer {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 10px 16px;
+}
+
+footer a {
+  font-size: 11px;
+  color: var(--text-muted);
+  text-decoration: none;
+}
+
+footer a:hover { color: var(--accent); text-decoration: underline; }

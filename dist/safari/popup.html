@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Evipedia</title>
+  <link rel="stylesheet" href="popup.css">
+</head>
+<body>
+  <header>
+    <span class="logo">evipedia</span>
+    <span class="tagline">evidence reviews</span>
+  </header>
+
+  <section class="row" id="row-global">
+    <div class="label">
+      <span class="label-main">Highlighting</span>
+    </div>
+    <label class="toggle" id="toggle-global">
+      <input type="checkbox" id="cb-enabled">
+      <span class="track"><span class="thumb"></span></span>
+    </label>
+  </section>
+
+  <section class="row" id="row-once">
+    <div class="label">
+      <span class="label-main">Highlight only once</span>
+      <span class="label-sub">Mark only first occurrences</span>
+    </div>
+    <label class="toggle" id="toggle-once">
+      <input type="checkbox" id="cb-once">
+      <span class="track"><span class="thumb"></span></span>
+    </label>
+  </section>
+
+  <section class="row" id="row-site" hidden>
+    <div class="label">
+      <span class="label-main">On this site</span>
+      <span class="label-sub" id="current-domain"></span>
+    </div>
+    <label class="toggle" id="toggle-site">
+      <input type="checkbox" id="cb-site">
+      <span class="track"><span class="thumb"></span></span>
+    </label>
+  </section>
+
+  <footer>
+    <a href="https://github.com/forever-healthy/evipedia-extension/discussions" target="_blank" rel="noopener">Give feedback</a>
+    <a href="https://evipedia.ai" target="_blank" rel="noopener">evipedia.ai</a>
+  </footer>
+
+  <script src="popup.js"></script>
+</body>
+</html>
