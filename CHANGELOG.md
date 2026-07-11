@@ -1,6 +1,13 @@
 # Evipedia Extension - Change Log
 
 
+### v0.3.4 — 2026-07-11
+
+* Removed the redundant `<all_urls>` **host permission**. The content script still runs on all
+  sites (via `content_scripts` matches) to highlight terms, but the extension no longer holds
+  broad fetch/cookie access — the only host permission is `https://evipedia.ai/*`. No behavior
+  change; reduces the permission footprint and the Chrome Web Store "broad host permissions" flag.
+
 ### v0.3.3 — 2026-07-11
 
 * Extension description now reads "health **and longevity** intervention terms" to better

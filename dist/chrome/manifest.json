@@ -2,11 +2,10 @@
   "manifest_version": 3,
   "name": "Evipedia",
   "description": "Highlights health and longevity intervention terms on any web page with evidence review hover cards from evipedia.ai",
-  "version": "0.3.3",
+  "version": "0.3.4",
   "permissions": ["storage", "activeTab"],
   "host_permissions": [
-    "https://evipedia.ai/*",
-    "<all_urls>"
+    "https://evipedia.ai/*"
   ],
   "background": {
     "service_worker": "background.js"

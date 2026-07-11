@@ -89,9 +89,11 @@
 
 <h2>Permissions</h2>
 <ul>
-  <li><b>Access to all websites</b> (<code>&lt;all_urls&gt;</code>) — so highlighting can work
-    on any page you read. Page text is only ever read locally to find matches.</li>
-  <li><b>evipedia.ai access</b> — to fetch the public <code>reviews.json</code> index.</li>
+  <li><b>Runs on all websites</b> — the extension's content script runs on any page you read so
+    highlighting can work everywhere. It only reads the page's text locally to find matches; the
+    extension holds no broad access to your sites' data.</li>
+  <li><b>evipedia.ai access</b> — the only host permission; used to fetch the public
+    <code>reviews.json</code> index.</li>
   <li><b>Storage</b> — to remember your popup preferences on your device.</li>
   <li><b>Active tab</b> — to apply popup actions to the tab you're viewing.</li>
 </ul>

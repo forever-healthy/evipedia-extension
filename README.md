@@ -1,4 +1,4 @@
-![Version 0.3.3](https://img.shields.io/badge/Version-0.3.3-green.svg)
+![Version 0.3.4](https://img.shields.io/badge/Version-0.3.4-green.svg)
 ![Status: Beta](https://img.shields.io/badge/status-beta-orange.svg)
 [![Forever Healthy](https://img.shields.io/badge/(c)_2026-Forever_Healthy-573D7D.svg)](https://forever-healthy.org)
 ![evipedia.ai](./docs/evipedia-header.png)
@@ -7,7 +7,7 @@
 
 A browser extension for **Chrome**, **Firefox**, and **Safari** that brings [evipedia.ai](https://evipedia.ai) evidence-review highlighting to any web page you browse.
 
-Annoyed of manualy decoding a supplement label with noumerous compounds, reading a blog post about some therapy, or an X-post that name-drops a peptide — and having to look up every item manually? 
+Annoyed of manually decoding a supplement label with numerous compounds, reading a blog post about some therapy, or an X-post that name-drops a peptide — and having to look up every item manually? 
 
 Don't look any further. The Evipedia browser extension has you sorted.
 
