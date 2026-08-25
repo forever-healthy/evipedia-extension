@@ -13,7 +13,7 @@ Don't look any further. The Evipedia browser extension has you sorted.
 
 It scans whatever page you're on, recognizes any intervention Evipedia covers, and underlines it right there in the text. Hover for an instant evidence summary, or click through to the full review — no more switching tabs to look things up by hand.
 
-The extension currently recognizes **3,700+ terms across 500+ evidence reviews**.
+The extension currently recognizes **4,700+ terms across 740+ evidence reviews**.
 
 > **BETA** Feedback and bug reports are welcome via [GitHub issues](https://github.com/forever-healthy/evipedia-extension/issues).
 
