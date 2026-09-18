@@ -1,6 +1,14 @@
 # Evipedia Extension - Change Log
 
 
+### v0.3.8 — 2026-09-18
+
+* **Terms split across elements** — terms are now matched across adjacent inline elements,
+  e.g. x.com search results render the query "glp-1" as `<span>GLP</span><span>-</span><span>1</span>`.
+  Matching never crosses links, line breaks or block elements.
+
+* **Plurals** — a trailing "s" now matches too ("GLP-1s", "statins"), looked up by the singular.
+
 ### v0.3.7 — 2026-09-18
 
 * **Dynamic pages** — terms are now highlighted in content rendered after page load

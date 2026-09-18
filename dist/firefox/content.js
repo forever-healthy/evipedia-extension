@@ -38,7 +38,7 @@
   // Ranges (no DOM mutation), so highlighting never changes page layout. Because
   // a highlight is not an element it has no hover events — a single pointer
   // listener hit-tests the pointer against each term's Range geometry instead.
-  var highlightRanges = [];   // { range, review, node } for each auto-highlighted term
+  var highlightRanges = [];   // { range, review, nodes } for each auto-highlighted term
   var highlightObj = null;    // the CSS Highlight registered under HIGHLIGHT_NAME
   var hoverHit = null;        // range item the pointer is currently over
   var hoverShowTimer = null;
@@ -347,8 +347,9 @@
     });
     var list = Object.keys(uniq).map(function (k) { return uniq[k]; });
     list.sort(function (a, b) { return b.length - a.length; });
+    // (s?) also matches a plural — "GLP-1s", "statins" — looked up by the singular.
     data.__pattern = list.length
-      ? new RegExp("(^|[^A-Za-z0-9])(" + list.map(namePattern).join("|") + ")(?![A-Za-z0-9])", "gi")
+      ? new RegExp("(^|[^A-Za-z0-9])(" + list.map(namePattern).join("|") + ")(s?)(?![A-Za-z0-9])", "gi")
       : null;
     return data.__pattern;
   }
@@ -357,8 +358,9 @@
   // touching the DOM, so highlighting inside flex, grid or -webkit-line-clamp
   // containers is safe. We only skip text where highlighting is unwanted or
   // meaningless (non-visual tags, editable regions, already-highlighted spans).
+  // Whitespace-only nodes are eligible: they can sit inside a split term.
   function autoEligible(node) {
-    if (!node.nodeValue || !/\S/.test(node.nodeValue)) return false;
+    if (!node.nodeValue) return false;
     for (var p = node.parentNode; p && p.nodeType === 1; p = p.parentNode) {
       if (SKIP_TAGS[p.tagName]) return false;
       if (p.isContentEditable) return false;
@@ -381,15 +383,28 @@
     return highlightObj;
   }
 
-  // Register a Range for every term match in this text node. No DOM mutation, so
-  // the node's offsets stay valid across matches and the page layout is untouched.
-  function autoHighlight(node, data, pattern, hl) {
-    var text = node.nodeValue;
+  // Map an offset in a run's joined text back to (text node, offset).
+  function locate(run, idx, isEnd) {
+    for (var i = 0; i < run.nodes.length; i++) {
+      var st = run.starts[i], len = run.nodes[i].nodeValue.length;
+      if (isEnd ? idx <= st + len : idx < st + len) {
+        return { i: i, node: run.nodes[i], offset: idx - st };
+      }
+    }
+    return null;
+  }
+
+  // Register a Range for every term match in this run of text. A match may span
+  // several text nodes (Ranges can). No DOM mutation, so offsets stay valid
+  // across matches and the page layout is untouched.
+  function autoHighlight(run, data, pattern, hl) {
+    var text = run.text;
     pattern.lastIndex = 0;
     var added = 0, m;
     while ((m = pattern.exec(text))) {
       var name = m[2];
       var start = m.index + m[1].length;
+      var end = start + name.length + m[3].length;  // include a plural "s" (GLP-1s)
       var key = norm(name);
       var forms = data.acronymForms[key];
       if (forms && forms.indexOf(name) === -1) continue;
@@ -397,11 +412,13 @@
       if (!review) continue;
       if (pointsToCurrentPage(review)) continue;
       if (config.autoLinkOnce && linkedTerms[key]) continue;
+      var s = locate(run, start, false), e = locate(run, end, true);
+      if (!s || !e) continue;
       var range = document.createRange();
-      range.setStart(node, start);
-      range.setEnd(node, start + name.length);
+      range.setStart(s.node, s.offset);
+      range.setEnd(e.node, e.offset);
       hl.add(range);
-      highlightRanges.push({ range: range, review: review, node: node });
+      highlightRanges.push({ range: range, review: review, nodes: run.nodes.slice(s.i, e.i + 1) });
       added++;
       if (config.autoLinkOnce) linkedTerms[key] = true;
     }
@@ -481,8 +498,52 @@
     document.addEventListener("pointerup", onTap, { passive: true });
   }
 
-  // Text nodes already scanned, so rescans of overlapping subtrees (and the
-  // observer below) never register the same term twice.
+  // Inline tags that don't break a line of text. Sites split words across
+  // adjacent inline elements — x.com search results render the query "glp-1" as
+  // <span>GLP</span><span>-</span><span>1</span> — so terms are matched over runs
+  // of consecutive eligible text within one block, not per text node.
+  var INLINE_TAGS = { SPAN: 1, B: 1, STRONG: 1, I: 1, EM: 1, U: 1, S: 1, MARK: 1,
+    SMALL: 1, SUB: 1, SUP: 1, ABBR: 1, CITE: 1, Q: 1, DFN: 1, TIME: 1, VAR: 1,
+    BDI: 1, BDO: 1, FONT: 1, INS: 1, DEL: 1, DATA: 1, WBR: 1 };
+
+  function blockOf(node) {
+    var p = node.nodeType === 1 ? node : node.parentNode;
+    while (p && p.nodeType === 1 && INLINE_TAGS[p.tagName] && p !== document.body) p = p.parentNode;
+    return p;
+  }
+
+  // Split root's text into runs: consecutive eligible text nodes in the same
+  // block, broken by any non-inline element (br, img, a, nested block, …).
+  function collectRuns(root) {
+    var runs = [], cur = null, curBlock = null, node;
+    function end() {
+      if (cur && /\S/.test(cur.text)) runs.push(cur);
+      cur = null;
+    }
+    var walker = document.createTreeWalker(root, NodeFilter.SHOW_ELEMENT | NodeFilter.SHOW_TEXT, null);
+    while ((node = walker.nextNode())) {
+      if (node.nodeType === 1) {
+        if (!INLINE_TAGS[node.tagName]) end();
+        continue;
+      }
+      if (!autoEligible(node)) { end(); continue; }
+      var block = blockOf(node);
+      if (!cur || block !== curBlock) {
+        end();
+        cur = { nodes: [], starts: [], text: "" };
+        curBlock = block;
+      }
+      cur.starts.push(cur.text.length);
+      cur.nodes.push(node);
+      cur.text += node.nodeValue;
+    }
+    end();
+    return runs;
+  }
+
+  // Text nodes already scanned. A run is rescanned (its old Ranges dropped
+  // first) only when it contains a new or changed node, so the observer never
+  // registers the same term twice.
   var scannedNodes = new WeakSet();
 
   function autoScan(data, root) {
@@ -490,38 +551,41 @@
     var pattern = autoPattern(data);
     root = root || document.body;
     if (!pattern || !root) return 0;
-    var nodes = [], node;
-    if (root.nodeType === 3) {
-      if (!scannedNodes.has(root) && autoEligible(root)) nodes.push(root);
-    } else {
-      var walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, null);
-      while ((node = walker.nextNode())) {
-        if (!scannedNodes.has(node) && autoEligible(node)) nodes.push(node);
-      }
-    }
+    // Widen to the enclosing block so a new/changed piece is rejoined with its
+    // neighbouring inline text.
+    if (root.nodeType !== 1 || INLINE_TAGS[root.tagName]) root = blockOf(root);
+    if (!root) return 0;
     var hl = ensureHighlight();
     var added = 0;
-    nodes.forEach(function (n) {
-      scannedNodes.add(n);
-      added += autoHighlight(n, data, pattern, hl);
+    collectRuns(root).forEach(function (run) {
+      if (run.nodes.every(function (n) { return scannedNodes.has(n); })) return;
+      var inRun = new Set(run.nodes);
+      dropRanges(function (it) { return it.nodes.some(function (n) { return inRun.has(n); }); });
+      run.nodes.forEach(function (n) { scannedNodes.add(n); });
+      added += autoHighlight(run, data, pattern, hl);
     });
     if (added) enableHover();
     return added;
   }
 
-  // Drop Ranges whose text node left the DOM (SPA re-renders, virtualised feeds
-  // like x.com recycle nodes) or whose text changed (stale offsets).
-  function pruneRanges(changed) {
+  function dropRanges(shouldDrop) {
     if (!highlightObj) return;
     highlightRanges = highlightRanges.filter(function (it) {
-      // Check the text node itself: a live Range whose node is removed collapses
-      // onto the parent, so range.startContainer would still look connected.
-      var n = it.node;
-      if (n.isConnected && !(changed && changed.has(n))) return true;
+      if (!shouldDrop(it)) return true;
       highlightObj.delete(it.range);
-      scannedNodes.delete(n);  // rescan if the node is re-inserted later
+      it.nodes.forEach(function (n) { scannedNodes.delete(n); });  // rescan if re-inserted
       if (hoverHit === it) hoverHit = null;
       return false;
+    });
+  }
+
+  // Drop Ranges whose text nodes left the DOM (SPA re-renders, virtualised feeds
+  // like x.com recycle nodes) or whose text changed (stale offsets). Checks the
+  // nodes themselves: a live Range whose node is removed collapses onto the
+  // parent, so range.startContainer would still look connected.
+  function pruneRanges(changed) {
+    dropRanges(function (it) {
+      return it.nodes.some(function (n) { return !n.isConnected || (changed && changed.has(n)); });
     });
   }
 
