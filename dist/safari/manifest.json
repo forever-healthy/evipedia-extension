@@ -2,7 +2,7 @@
   "manifest_version": 3,
   "name": "Evipedia",
   "description": "Highlights health & longevity intervention terms on any page, with evidence-review cards from evipedia.ai",
-  "version": "0.3.8",
+  "version": "0.3.9",
   "browser_specific_settings": {
     "safari": {
       "strict_min_version": "17.2"

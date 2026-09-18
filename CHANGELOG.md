@@ -1,6 +1,13 @@
 # Evipedia Extension - Change Log
 
 
+### v0.3.9 — 2026-09-18
+
+* **Unicode word boundaries** — terms no longer match inside words with non-ASCII letters,
+  e.g. "gegen" (a Kudzu alias) inside German "gegenüber".
+
+* Stop-listed "gegen" (German for "against").
+
 ### v0.3.8 — 2026-09-18
 
 * **Terms split across elements** — terms are now matched across adjacent inline elements,

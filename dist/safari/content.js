@@ -27,7 +27,7 @@
   };
 
   // See widget.js for the rationale behind these two layers of false-positive control.
-  var AUTO_STOPWORDS = { "his": 1, "gal": 1, "sar": 1 };
+  var AUTO_STOPWORDS = { "his": 1, "gal": 1, "sar": 1, "gegen": 1 };  // gegen: German "against" (Kudzu alias)
 
   var config = null;
   var indexPromise = null;
@@ -347,9 +347,11 @@
     });
     var list = Object.keys(uniq).map(function (k) { return uniq[k]; });
     list.sort(function (a, b) { return b.length - a.length; });
-    // (s?) also matches a plural — "GLP-1s", "statins" — looked up by the singular.
+    // Word boundaries are Unicode-aware (\p{L}\p{N}), so "gegen" doesn't match
+    // inside "gegenüber". (s?) also matches a plural — "GLP-1s", "statins" —
+    // looked up by the singular.
     data.__pattern = list.length
-      ? new RegExp("(^|[^A-Za-z0-9])(" + list.map(namePattern).join("|") + ")(s?)(?![A-Za-z0-9])", "gi")
+      ? new RegExp("(^|[^\\p{L}\\p{N}])(" + list.map(namePattern).join("|") + ")(s?)(?![\\p{L}\\p{N}])", "giu")
       : null;
     return data.__pattern;
   }
