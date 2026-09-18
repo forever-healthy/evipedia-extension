@@ -1,6 +1,12 @@
 # Evipedia Extension - Change Log
 
 
+### v0.3.7 — 2026-09-18
+
+* **Dynamic pages** — terms are now highlighted in content rendered after page load
+  (single-page apps like x.com, infinite scroll, client-side navigation). A throttled
+  `MutationObserver` scans added/edited text and drops highlights whose text was removed.
+
 ### v0.3.6 — 2026-07-11
 
 * **Touch support** — tapping a highlighted term now opens its evidence card (and tapping

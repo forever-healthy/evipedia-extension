@@ -38,7 +38,7 @@
   // Ranges (no DOM mutation), so highlighting never changes page layout. Because
   // a highlight is not an element it has no hover events — a single pointer
   // listener hit-tests the pointer against each term's Range geometry instead.
-  var highlightRanges = [];   // { range, review } for each auto-highlighted term
+  var highlightRanges = [];   // { range, review, node } for each auto-highlighted term
   var highlightObj = null;    // the CSS Highlight registered under HIGHLIGHT_NAME
   var hoverHit = null;        // range item the pointer is currently over
   var hoverShowTimer = null;
@@ -401,7 +401,7 @@
       range.setStart(node, start);
       range.setEnd(node, start + name.length);
       hl.add(range);
-      highlightRanges.push({ range: range, review: review });
+      highlightRanges.push({ range: range, review: review, node: node });
       added++;
       if (config.autoLinkOnce) linkedTerms[key] = true;
     }
@@ -481,18 +481,90 @@
     document.addEventListener("pointerup", onTap, { passive: true });
   }
 
-  function autoScan(data) {
+  // Text nodes already scanned, so rescans of overlapping subtrees (and the
+  // observer below) never register the same term twice.
+  var scannedNodes = new WeakSet();
+
+  function autoScan(data, root) {
     if (!highlightSupported()) return 0;
     var pattern = autoPattern(data);
-    if (!pattern || !document.body) return 0;
-    var walker = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT, null);
+    root = root || document.body;
+    if (!pattern || !root) return 0;
     var nodes = [], node;
-    while ((node = walker.nextNode())) if (autoEligible(node)) nodes.push(node);
+    if (root.nodeType === 3) {
+      if (!scannedNodes.has(root) && autoEligible(root)) nodes.push(root);
+    } else {
+      var walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, null);
+      while ((node = walker.nextNode())) {
+        if (!scannedNodes.has(node) && autoEligible(node)) nodes.push(node);
+      }
+    }
     var hl = ensureHighlight();
     var added = 0;
-    nodes.forEach(function (n) { added += autoHighlight(n, data, pattern, hl); });
+    nodes.forEach(function (n) {
+      scannedNodes.add(n);
+      added += autoHighlight(n, data, pattern, hl);
+    });
     if (added) enableHover();
     return added;
+  }
+
+  // Drop Ranges whose text node left the DOM (SPA re-renders, virtualised feeds
+  // like x.com recycle nodes) or whose text changed (stale offsets).
+  function pruneRanges(changed) {
+    if (!highlightObj) return;
+    highlightRanges = highlightRanges.filter(function (it) {
+      // Check the text node itself: a live Range whose node is removed collapses
+      // onto the parent, so range.startContainer would still look connected.
+      var n = it.node;
+      if (n.isConnected && !(changed && changed.has(n))) return true;
+      highlightObj.delete(it.range);
+      scannedNodes.delete(n);  // rescan if the node is re-inserted later
+      if (hoverHit === it) hoverHit = null;
+      return false;
+    });
+  }
+
+  // Single-page apps (x.com, etc.) render content after DOMContentLoaded and on
+  // client-side navigation/infinite scroll. Watch for added or edited text and
+  // scan just those subtrees, throttled so bursts of mutations cost one pass.
+  var OBSERVE_DELAY = 250;
+
+  function observe(data) {
+    if (!window.MutationObserver || !document.body) return;
+    var pendingRoots = new Set(), changedText = new Set(), removed = false, timer = null;
+
+    function flush() {
+      timer = null;
+      var roots = pendingRoots, changed = changedText;
+      pendingRoots = new Set();
+      changedText = new Set();
+      removed = false;
+      changed.forEach(function (n) { scannedNodes.delete(n); });
+      pruneRanges(changed);
+      manualScan(data);
+      if (config.mode !== "auto") return;
+      roots.forEach(function (r) { if (r.isConnected) autoScan(data, r); });
+    }
+
+    new MutationObserver(function (records) {
+      for (var i = 0; i < records.length; i++) {
+        var rec = records[i];
+        if (rec.type === "characterData") {
+          changedText.add(rec.target);
+          pendingRoots.add(rec.target);
+        } else {
+          if (rec.removedNodes.length) removed = true;
+          for (var j = 0; j < rec.addedNodes.length; j++) {
+            var n = rec.addedNodes[j];
+            if (n.nodeType === 1 || n.nodeType === 3) pendingRoots.add(n);
+          }
+        }
+      }
+      if (!timer && (pendingRoots.size || changedText.size || removed)) {
+        timer = setTimeout(flush, OBSERVE_DELAY);
+      }
+    }).observe(document.body, { childList: true, subtree: true, characterData: true });
   }
 
   // The evipedia widget (evipedia.ai/widget.js) does this very same highlighting
@@ -520,6 +592,7 @@
     return loadIndex().then(function (data) {
       manualScan(data);
       if (config.mode === "auto") autoScan(data);
+      observe(data);
     });
   }
 
