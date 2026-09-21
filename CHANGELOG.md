@@ -1,6 +1,11 @@
 # Evipedia Extension - Change Log
 
 
+### v0.4.0 — 2026-09-21
+
+* **Popup layout** — "evipedia.ai" (linked) at the top left, "Evidence reviews" at the top
+  right, and the extension version (e.g. "v0.4.0") at the bottom right.
+
 ### v0.3.9 — 2026-09-18
 
 * **Unicode word boundaries** — terms no longer match inside words with non-ASCII letters,

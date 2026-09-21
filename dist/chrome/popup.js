@@ -11,6 +11,8 @@
   var rowOnce   = document.getElementById("row-once");
   var domainEl  = document.getElementById("current-domain");
 
+  document.getElementById("version").textContent = "v" + chrome.runtime.getManifest().version;
+
   var currentDomain = null;
   var settings = null;
 
