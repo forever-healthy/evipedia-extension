@@ -215,8 +215,11 @@
     var content = root.querySelector(".content");
     var hideTimer;
 
+    var anchorRect = null;  // rect of the term the card is showing, for inBridge()
+
     function position(anchor) {
       var r = anchor.getBoundingClientRect();
+      anchorRect = r;
       var cw = card.offsetWidth, ch = card.offsetHeight, pad = 8;
       // Use fixed positioning — no scrollY/scrollX offset needed.
       var top = r.bottom + pad;
@@ -266,8 +269,23 @@
 
     function hide() { card.classList.remove("on"); }
     function scheduleHide() { hideTimer = setTimeout(hide, config.hideDelay); }
+    function cancelHide() { clearTimeout(hideTimer); }
+    function isShown() { return card.classList.contains("on"); }
 
-    return { show: show, hide: hide, scheduleHide: scheduleHide, host: host };
+    // The gap between the shown term and the card (below or above it), spanning
+    // the card's width. Moving from a term to its card crosses this gap — and
+    // often the next line's highlight — so the gap counts as part of the card.
+    function inBridge(x, y) {
+      if (!anchorRect || !card.classList.contains("on")) return false;
+      var c = card.getBoundingClientRect();
+      if (x < Math.min(c.left, anchorRect.left) || x > Math.max(c.right, anchorRect.right)) return false;
+      return c.top >= anchorRect.bottom
+        ? y >= anchorRect.bottom && y <= c.top
+        : y >= c.bottom && y <= anchorRect.top;
+    }
+
+    return { show: show, hide: hide, scheduleHide: scheduleHide, cancelHide: cancelHide,
+             inBridge: inBridge, isShown: isShown, host: host };
   }
 
   // ---- term binding & scanning (identical to widget.js) --------------------
@@ -348,10 +366,12 @@
     var list = Object.keys(uniq).map(function (k) { return uniq[k]; });
     list.sort(function (a, b) { return b.length - a.length; });
     // Word boundaries are Unicode-aware (\p{L}\p{N}), so "gegen" doesn't match
-    // inside "gegenüber". (s?) also matches a plural — "GLP-1s", "statins" —
-    // looked up by the singular.
+    // inside "gegenüber", and a term followed by a dash (any \p{Pd}, or U+2212
+    // minus) plus a digit is part of a number
+    // range/continuation ("C10-30 Alkyl Acrylate"), not the term. (s?) also
+    // matches a plural — "GLP-1s", "statins" — looked up by the singular.
     data.__pattern = list.length
-      ? new RegExp("(^|[^\\p{L}\\p{N}])(" + list.map(namePattern).join("|") + ")(s?)(?![\\p{L}\\p{N}])", "giu")
+      ? new RegExp("(^|[^\\p{L}\\p{N}])(" + list.map(namePattern).join("|") + ")(s?)(?![\\p{L}\\p{N}]|[\\p{Pd}\u2212]\\p{N})", "giu")
       : null;
     return data.__pattern;
   }
@@ -444,8 +464,19 @@
     return null;
   }
 
+  // With a card already open, switching to another term needs a longer rest on
+  // it, so merely crossing highlights on the way into the card never flashes
+  // their cards (reaching the card cancels the pending switch).
+  var SWITCH_DELAY = 400;
+
   function processHover() {
     movePending = false;
+    // On the way from a term into its card: keep the card, switch to nothing.
+    if (ui.inBridge(pointerX, pointerY)) {
+      clearTimeout(hoverShowTimer);
+      ui.cancelHide();
+      return;
+    }
     var hit = rangeAt(pointerX, pointerY);
     if (hit) {
       if (hoverHit === hit) return;
@@ -453,7 +484,7 @@
       clearTimeout(hoverShowTimer);
       hoverShowTimer = setTimeout(function () {
         ui.show(hit.range, hit.review);
-      }, config.showDelay);
+      }, ui.isShown() ? SWITCH_DELAY : config.showDelay);
     } else if (hoverHit) {
       hoverHit = null;
       clearTimeout(hoverShowTimer);
@@ -463,8 +494,13 @@
 
   function onPointerMove(e) {
     if (!highlightRanges.length) return;
-    // Ignore movement over the card itself; it manages its own show/hide timers.
-    if (ui && ui.host && e.composedPath && e.composedPath().indexOf(ui.host) !== -1) return;
+    // Movement over the card itself: cancel any pending switch to a term the
+    // pointer crossed on its way in; the card manages its own hide timer.
+    if (ui && ui.host && e.composedPath && e.composedPath().indexOf(ui.host) !== -1) {
+      clearTimeout(hoverShowTimer);
+      hoverHit = null;
+      return;
+    }
     pointerX = e.clientX;
     pointerY = e.clientY;
     if (movePending) return;

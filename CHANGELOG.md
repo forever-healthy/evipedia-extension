@@ -1,6 +1,15 @@
 # Evipedia Extension - Change Log
 
 
+### v0.4.1 — 2026-09-21
+
+* **Hover card on stacked highlights** — moving from a highlighted term down (or up) into its
+  card no longer switches to, or hides behind, a highlight on the next line. The gap between
+  term and card now counts as part of the card, and reaching the card cancels any pending switch.
+
+* **Number ranges** — a term directly followed by "-" plus a digit is no longer matched, e.g.
+  "C10" (an MCT alias) in the INCI name "C10-30 Alkyl Acrylate".
+
 ### v0.4.0 — 2026-09-21
 
 * **Popup layout** — "evipedia.ai" (linked) at the top left, "Evidence reviews" at the top
