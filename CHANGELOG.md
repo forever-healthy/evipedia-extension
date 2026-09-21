@@ -1,6 +1,15 @@
 # Evipedia Extension - Change Log
 
 
+### v0.4.2 — 2026-09-21
+
+* **Hover card timers** — scheduling a hide now clears any earlier
+  hide timer, so an orphaned timer can no longer close the card under the pointer (leave term
+  A, cross term B, reach the card). Switching from one term to another no longer makes the
+  card close and reopen: a hide pending from crossing the gap between terms is cancelled when
+  the switch is queued. (Since 0.4.1, switching to another term while a card is open waits
+  400 ms, so merely crossing a highlight doesn't flash its card.)
+
 ### v0.4.1 — 2026-09-21
 
 * **Hover card on stacked highlights** — moving from a highlighted term down (or up) into its

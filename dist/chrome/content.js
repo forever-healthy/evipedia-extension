@@ -256,7 +256,7 @@
     }
 
     card.addEventListener("mouseenter", function () { clearTimeout(hideTimer); });
-    card.addEventListener("mouseleave", function () { hideTimer = setTimeout(hide, config.hideDelay); });
+    card.addEventListener("mouseleave", function () { scheduleHide(); });
 
     // anchor is anything with getBoundingClientRect() — a term element (manual
     // mode) or a Range (auto mode via the Highlight API).
@@ -268,7 +268,12 @@
     }
 
     function hide() { card.classList.remove("on"); }
-    function scheduleHide() { hideTimer = setTimeout(hide, config.hideDelay); }
+    // Clear first: an overwritten timer would be orphaned and could still fire,
+    // closing the card under the pointer.
+    function scheduleHide() {
+      clearTimeout(hideTimer);
+      hideTimer = setTimeout(hide, config.hideDelay);
+    }
     function cancelHide() { clearTimeout(hideTimer); }
     function isShown() { return card.classList.contains("on"); }
 
@@ -293,6 +298,7 @@
   function bind(term, review) {
     var showTimer;
     term.addEventListener("mouseenter", function () {
+      ui.cancelHide();  // keep the open card until this term's card replaces it
       showTimer = setTimeout(function () { ui.show(term, review); }, config.showDelay);
     });
     term.addEventListener("mouseleave", function () {
@@ -482,6 +488,9 @@
       if (hoverHit === hit) return;
       hoverHit = hit;
       clearTimeout(hoverShowTimer);
+      // Switching: a hide pending from crossing empty space (hideDelay) would
+      // fire before SWITCH_DELAY and make the card close and reopen.
+      if (ui.isShown()) ui.cancelHide();
       hoverShowTimer = setTimeout(function () {
         ui.show(hit.range, hit.review);
       }, ui.isShown() ? SWITCH_DELAY : config.showDelay);
