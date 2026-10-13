@@ -1,6 +1,12 @@
 # Evipedia Extension - Change Log
 
 
+### v0.4.3 — 2026-10-13
+
+* **Fewer false highlights** — "may" (a Hawthorn alias) is no longer auto-highlighted, as it
+  collided with the verb and the month. Also adopts the widget's other stop words: acid, adam,
+  molly, elder, bailing, vegetal, melissa.
+
 ### v0.4.2 — 2026-09-21
 
 * **Hover card timers** — scheduling a hide now clears any earlier

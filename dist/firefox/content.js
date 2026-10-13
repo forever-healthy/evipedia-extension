@@ -27,7 +27,10 @@
   };
 
   // See widget.js for the rationale behind these two layers of false-positive control.
-  var AUTO_STOPWORDS = { "his": 1, "gal": 1, "sar": 1, "gegen": 1 };  // gegen: German "against" (Kudzu alias)
+  var AUTO_STOPWORDS = { "his": 1, "gal": 1, "sar": 1, "acid": 1, "adam": 1, "molly": 1,
+    "elder": 1, "bailing": 1, "vegetal": 1, "melissa": 1,
+    "gegen": 1,    // gegen: German "against" (Kudzu alias)
+    "may": 1 };    // may: the verb / month (Hawthorn alias)
 
   var config = null;
   var indexPromise = null;
